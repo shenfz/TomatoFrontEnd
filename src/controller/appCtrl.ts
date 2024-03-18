@@ -1,8 +1,9 @@
 
 // 当前登录者 信息
 import modUserAPI,{MainUserInfo} from "@/api/userApi";
-import {changeLocale} from "@/config/lpk";
+import {changeLocale,mergeLpk} from "@/config/lpk";
 import {LOGIN_TOKEN} from "@/utils/constants";
+import {changeTheme} from "@/config/theme";
 
 
 let iLoginUser:MainUserInfo = {} as MainUserInfo
@@ -19,10 +20,12 @@ export const getLoginUserInfo = async ()=> {
 }
 
 export default {
+    // get log in user info
     getLoginUser() {
          return iLoginUser
     },
-    changeLoginUserLocale(locale:string){
-        changeLocale(locale)
-    }
+    // lpk method load in appCtrl
+    changeLocale,
+    mergeLpk,
+    changeTheme
 }

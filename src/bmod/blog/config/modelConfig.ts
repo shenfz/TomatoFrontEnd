@@ -1,3 +1,5 @@
 // model config files
 
-export {}
+export default {
+    module: 'blog'  // mod name
+}

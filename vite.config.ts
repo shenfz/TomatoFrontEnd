@@ -1,11 +1,31 @@
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
+import autoImport from 'unplugin-auto-import/vite'
+import Components from 'unplugin-vue-components/vite'
 import { resolve } from 'path'
 import postCssPxToRem from 'postcss-pxtorem'
 import autoprefixer from 'autoprefixer'
+import {VantResolver} from "unplugin-vue-components/resolvers";
 // https://vitejs.dev/config/
+
+/*
+*   1. autoImport  开发阶段，自动帮你从[imports]创建声明文件[指定dst] ，不需要每次导入vue API
+*   2. Components  自定义导入UI组件
+*
+* */
 export default defineConfig({
-  plugins: [vue()],
+  plugins: [
+      vue(),
+    autoImport({
+     imports: ['vue'],
+     dts: 'src/types/auto-import.d.ts',
+  }),
+    Components({
+      resolvers: [VantResolver()],
+      dts: 'src/types/components.d.ts'
+    })
+
+  ],
   resolve: {
     alias: {
       '@': resolve(__dirname,'src')

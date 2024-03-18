@@ -1,0 +1,42 @@
+// 与 ui关联
+
+@import "./theme-vars";
+
+// 暴露读取到的所有样式
+@mixin def_all_theme {
+  @each $theme-name , $theme-value in $themes{
+     // 暴露成全局标识
+    $theme-value: $theme-value !global;
+    [data-theme = "#{'' + $theme-name}"] & {
+      @content;
+    }
+  }
+}
+
+// 获取确定主题下指定样式的值
+// blue black
+@function get_theme_value($key) {
+  @return map-get($theme-value,$key);
+}
+
+// 获取指定颜色
+@mixin color($color: 'primary-color'){
+  @include def_all_theme{
+    color: get_theme_value($color);
+  }
+}
+
+
+// 获取指定背景色
+@mixin bg($bg: 'primary-bg'){
+  @include def_all_theme{
+    background-color: get_theme_value($bg);
+  }
+}
+
+// 字体大小
+@mixin fontSize($fs: 'font-size'){
+  @include def_all_theme{
+    font-size: get_theme_value($fs);
+  }
+}

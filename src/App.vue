@@ -1,21 +1,18 @@
 <script setup lang="ts">
-import Tools from "./utils/Tools";
-import {lpk} from "@/config/lpk";
 
-Tools.LocalStorage.setItem('testKey','testVal')
-console.log(lpk('Index'))
+
+
 </script>
 
 <template>
-  <div>
-   {{ app.getConfig('baseURL') }}
-    {{ Tools.LocalStorage.getItem('testKey') }}
-    {{lpk('Index')}}
-
-  </div>
+ <div class="app-w">
+   <router-view></router-view>
+ </div>
 
 </template>
 
 <style scoped>
-
+.app-w{
+  background: #EFEFEF;
+}
 </style>
