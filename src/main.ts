@@ -1,9 +1,14 @@
 import { createApp } from "vue"
 import App from './App.vue'
-import {initApp} from "@/config/init";
-// import 'normalize.css/normalize.css'
-// import './assets/fonts/font.css'
-// import './assets/styles/global.scss'
+import {initApp,initGlobalComponent} from "@/config/init";
+
+import '@/assets/styles/base-theme.scss'
+import '@/assets/styles/blue-theme.scss'
+import '@/assets/styles/black-theme.scss'
+
+import 'normalize.css/normalize.css'
+import './assets/fronts/iconfont.css'
+import './assets/styles/global.scss'
 
 (async  () => {
 
@@ -19,7 +24,7 @@ import {initApp} from "@/config/init";
     // 初始化UI
     const iApp = createApp(App)
     //注册全局组件
-
+    initGlobalComponent(iApp)
     // 根组件绑定全局对象
      iApp.config.globalProperties.app = window.app
      iApp.config.globalProperties.tools = window.Tools

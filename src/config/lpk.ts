@@ -2,12 +2,24 @@
 
 import {get, isArray, isEmpty} from 'lodash'
 import {LOCALE_OPTIONS} from "@/utils/constants";
+import { Locale } from 'vant'
+import enUS from 'vant/es/locale/lang/en-US'
 
 const stLocaleStorageKeyName = 'locale'  // 本地缓存的语言字段保存key
 const tbLpk: Record<string, string | string[]> = {}
+
+// 初始化系统语言环境
 export  const initLpk = () => {
     // 通配符的形式取到所有lpk文件内容 json  ， eager=true 表示同步的形式，false为异步，返回异步方法
     mergeLpk(import.meta.glob('@/locales/*',{eager: true}))
+}
+
+// 初始化第三方UI库的语言包环境
+const initThirdUILpk = () => {
+     const tblThirdLpk: GlobalType.IRecord = {
+       //  LOCALE_OPTIONS[1]: enUS,
+
+     }
 }
 
 // 动态获取当前语言环境
