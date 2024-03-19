@@ -1,8 +1,39 @@
 import sysConfig,{ISysConfig,ISysBModItem} from "@/config/sysConfig";
 import appCtrl from "@/controller/appCtrl";
+import {RouteRecordRaw} from "vue-router";
+import {isArray} from "lodash";
+
+// 存放所有业务模块信息 routes
+let giAllBModRoutes:RouteRecordRaw[] = []
+
+interface IBModRouteOperation{
+    registerBModRoute(mixRoute:RouteRecordRaw | RouteRecordRaw[]):void
+    getAllBModRoute():RouteRecordRaw[]
+}
+
+const routerBModRouterOper:IBModRouteOperation = {
+    registerBModRoute(mixRoute: RouteRecordRaw | RouteRecordRaw[]) {
+        if (!mixRoute){
+            return
+        }
+        if (isArray(mixRoute)){
+          giAllBModRoutes = giAllBModRoutes.concat(mixRoute)
+            return;
+        }
+        giAllBModRoutes.push(mixRoute)
+
+    },
+    getAllBModRoute(): RouteRecordRaw[] {
+        return giAllBModRoutes;
+    }
+}
 
 
 const app = {
+
+    // 业务模块路由相关操作 解构
+    ...routerBModRouterOper,
+
     // 获取配置
     getConfig<T>(key: keyof ISysConfig): T{
         return sysConfig[key] as unknown as T

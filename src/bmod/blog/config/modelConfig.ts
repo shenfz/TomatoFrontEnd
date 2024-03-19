@@ -1,5 +1,5 @@
 // model config files
 
 export default {
-    module: 'blog'  // mod name
+    moduleName: 'blog'  // mod name
 }
