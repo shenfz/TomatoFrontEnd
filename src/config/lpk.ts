@@ -25,6 +25,14 @@ const initThirdUILpk = () => {
     tblThirdLpk[stLocale] && (Locale.use(stLocale),tblThirdLpk[stLocale])
 }
 
+// 初始化第三方UI库的语言包环境
+const initThirdUILpk = () => {
+     const tblThirdLpk: GlobalType.IRecord = {
+       //  LOCALE_OPTIONS[1]: enUS,
+
+     }
+}
+
 // 动态获取当前语言环境
 export const getLocale = () => {
     const stDefaultLocale = 'zh_CN'
