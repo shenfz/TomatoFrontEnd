@@ -40,6 +40,7 @@ export const initRouter = ():Router => {
                     meta: {
                         title: lpk('page.my.title'),
                         requireAuth: false,
+                        keepAlive:false,   // 页面内容保存
                     }
                 },
             ]
@@ -67,6 +68,8 @@ export const initRouter = ():Router => {
 
     // 聚合业务模块路由信息  bmod/xxx/route/
     routes = routes.concat(app.getAllBModRoute())
+
+   // console.log("all routes=> ",routes)
     // 塞入捕获 404 路由
     routes.push({
       path: '/:pathMatch(.*)*',
@@ -78,6 +81,7 @@ export const initRouter = ():Router => {
     // 进行主从路由拼装
     giAllRoutes.map(item => DoRange(item,giAllRoutes))
 
+   // console.log('routes',giAllRoutes)
    // 基础路由，后续动态路由可以拿到iRouter再处理
     const iRouter = createRouter(
         {
@@ -127,10 +131,10 @@ function DoRange(hostRouteRecord:RouteRecordRawExt,giRoute:RouteRecordRawExt[]){
   // 1.拿到目标路由组的标识，通过此标识去遍历寻找它的从属路由
     // belongToRouterViewKey 从
     // hostRouterViewKey 主
-    const  stHostKeyVal = get(hostRouteRecord,'meta.hostRouterViewKey') as string
+    const  stHostKeyVal = get(hostRouteRecord,'meta.hostRouterViewKey',"")
     // 2.先进行值确认，和路由长度确认
      // 当 主路由 标志信息空 或 聚合的路由集合为空，直接跳过
-    if (!stHostKeyVal || !giRoute){
+    if (stHostKeyVal == "" || !giRoute){
         return
     }
 
@@ -143,7 +147,7 @@ function DoRange(hostRouteRecord:RouteRecordRawExt,giRoute:RouteRecordRawExt[]){
             continue;
         }
         // 主从标志匹配时，从路由归属给主路由，同时清除从集合中剔除该从路由
-        if(stHostKeyVal == get(item,'meta.belongToRouterViewKey')){
+        if(stHostKeyVal == get(item,'meta.belongToRouterViewKey',"")){
              // 判断主路由的孩子路由集合是否声明，否则置空
             hostRouteRecord.children = hostRouteRecord.children || []
             hostRouteRecord.children.push(item)

@@ -13,6 +13,9 @@ interface IBModRouteOperation{
 
 const routerBModRouterOper:IBModRouteOperation = {
     registerBModRoute(mixRoute: RouteRecordRaw | RouteRecordRaw[]) {
+
+        console.log("bmod routers register: ",mixRoute)
+
         if (!mixRoute){
             return
         }
@@ -20,6 +23,7 @@ const routerBModRouterOper:IBModRouteOperation = {
           giAllBModRoutes = giAllBModRoutes.concat(mixRoute)
             return;
         }
+
         giAllBModRoutes.push(mixRoute)
 
     },

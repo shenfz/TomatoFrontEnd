@@ -4,11 +4,11 @@ import type {RouteRecordRaw} from "vue-router";
 import {ROUTER_VIEW_KEY} from "@/utils/constants";
 
 export const initRouters = () => {
-    const stPath = `/${sysCfg.moduleName}`;
+    const stPath = '/blog';
      // 定义当前模块的路由信息
      const giRoutes:RouteRecordRaw[] = [{
-         name: `${sysCfg.moduleName}Index`,  // blogIndex
-         path: stPath, // `/blogIndex`
+         name: 'blogIndex',  // blogIndex
+         path: stPath, // `/blog`
          meta:{
              title: lpk('Blog'),
              requireAuth: false,
@@ -19,13 +19,13 @@ export const initRouters = () => {
          name: 'articleDetail',
          path: `${stPath}/article/detail/:id`, // 动态路由
          meta:{
-            // title: lpk('Blog'),
+             title: lpk('page.blog.article.detail.Title'),
              requireAuth: false
          },
          component: () => import('../views/Article/articleDetail.vue')
       },{
          name: 'editArticle',
-         path: `${stPath}/edit`,
+         path: `${stPath}/article/edit`,
          meta:{
               title: lpk('page.blog.article.edit.Title'),
               requireAuth: true // 需要鉴权
@@ -34,6 +34,7 @@ export const initRouters = () => {
      }
      ];
      // 使用app里的接口方法，注册业务路由到全局路由的存储对象中
+    console.log("before reg bmod router",giRoutes)
      app.registerBModRoute(giRoutes)
 }
 

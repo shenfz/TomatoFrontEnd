@@ -19,6 +19,7 @@
 <template>
  <div class="home">
    Home
+   <input/>
  </div>
 </template>
 

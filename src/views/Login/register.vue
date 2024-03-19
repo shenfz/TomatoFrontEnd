@@ -16,7 +16,7 @@
 </script>
 
 <template>
-  <div class="regist">{{lpk('page.regist.Title')}}</div>
+  <div class="register">{{lpk('page.register.Title')}}</div>
 </template>
 
 <style lang="scss" scoped>

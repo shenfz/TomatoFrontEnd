@@ -2,9 +2,9 @@ import app from "./app"
 import Tools from "@/utils/Tools";
 import {initLpk,lpk} from "@/config/lpk";
 import {getLoginUserInfo} from '@/controller/appCtrl'
-import {entryInitFn} from "@/bmod/blog/entry";
 import {App} from "vue";
 import {initTheme} from "@/config/theme";
+import {entryInitFn} from '@/bmod/blog/entry'
 
 
 // 往 window 上挂载全局变量
@@ -41,12 +41,15 @@ export const initApp = async () => {
 
     // .load whole business model
       // > get all entry file, range and init
-    const  allEntry:GlobalType.IRecord = import.meta.glob('@/bmod/*/entry.ts')
+    const  allEntry:GlobalType.IRecord = import.meta.glob('@/bmod/*/entry.ts',{eager: true})
     for (const path in allEntry) {
         const entryFile = allEntry[path]
         // make sure each entry file have init function
         entryFile && entryFile.entryInitFn && await entryFile.entryInitFn()
     }
+
+
+
 }
 
 // 注册全局组件

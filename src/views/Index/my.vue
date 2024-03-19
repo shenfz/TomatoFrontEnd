@@ -22,6 +22,7 @@
 <template>
 <div class="my">
   MY
+  <input/>
 </div>
 </template>
 

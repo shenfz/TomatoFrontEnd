@@ -17,7 +17,7 @@
 </script>
 
 <template>
-
+  <div class="login">{{lpk('page.login.Title')}}</div>
 </template>
 
 <style lang="scss" scoped>
