@@ -39,6 +39,7 @@ const app = {
     ...routerBModRouterOper,
 
     // 获取配置
+    // TODO as unknown ?
     getConfig<T>(key: keyof ISysConfig): T{
         return sysConfig[key] as unknown as T
     },

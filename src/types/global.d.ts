@@ -11,6 +11,10 @@ declare global {
     const app: IApp
     const Tools:ITools
     const lpk : IFnLpk
+
+    // ReturnType<typeof setTimeout>
+    type ITimeout = ReturnType<typeof setTimeout>
+
     interface  Window {
         app: IApp;  // 全局app对象，挂载一些全局数据和操作方法
         Tools: ITools; // 全局工具公用方法

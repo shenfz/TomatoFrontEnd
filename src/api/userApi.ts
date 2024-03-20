@@ -1,4 +1,5 @@
 // logon user main information
+
 export interface MainUserInfo{
     id:number
     name:string
@@ -7,9 +8,9 @@ export interface MainUserInfo{
 
 export default {
     getSelfInfo(): Promise<MainUserInfo>{
-        return Promise.resolve({
-            id:1,
-            name: 'san'
-        })
+         return Promise.resolve({
+             id: 1,
+             name: 'Tim'
+         })
     }
 }

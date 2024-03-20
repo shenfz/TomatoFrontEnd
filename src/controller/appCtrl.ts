@@ -2,7 +2,7 @@
 // 当前登录者 信息
 import modUserAPI,{MainUserInfo} from "@/api/userApi";
 import {changeLocale,mergeLpk} from "@/config/lpk";
-import {LOGIN_TOKEN} from "@/utils/constants";
+import {LOGIN_PATH, LOGIN_TOKEN} from "@/utils/constants";
 import {changeTheme} from "@/config/theme";
 
 
@@ -16,13 +16,18 @@ export const getLoginUserInfo = async ()=> {
         iLoginUser = await modUserAPI.getSelfInfo()
         console.log('login user info',iLoginUser)
     }
-
 }
+
+// redirect to login page
+
 
 export default {
     // get log in user info
     getLoginUser() {
          return iLoginUser
+    },
+    redirectToLogin() {
+        document.location.href = LOGIN_PATH
     },
     // lpk method load in appCtrl
     changeLocale,

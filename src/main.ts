@@ -14,14 +14,17 @@ import {initRouter} from "@/router";
 (async  () => {
 
     // 初始化系统基础配置信息【确保加载完成后，创建UI】
-
-    // 1.全局变量global，语言包lpk ,ajax, tools定义
-    // 2.异步加载基础模块的配置信息
+    // 全局变量global，语言包lpk ,ajax, tools定义
+    // 异步加载基础模块的配置信息
     //   > load system status
     //   > load info of user who log in before
+    //
 
-    // 3.异步加载业务模块，完成基本的初始化
-     await initApp()
+    // ajax============
+    //
+
+    // 异步加载业务模块，完成基本的初始化
+    await initApp()
     // 初始化UI
     const iApp = createApp(App)
     //注册全局组件
