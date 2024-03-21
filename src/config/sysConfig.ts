@@ -12,7 +12,7 @@ export interface ISysBModItem {
 }
 
 const iSysConf: ISysConfig = {
-    baseURL: 'https://localhost:8080',
+    baseURL: 'https://localhost:9999',
     bModNames: [{bName:'blog',enable:true}]
 }
 

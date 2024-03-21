@@ -1,6 +1,16 @@
 <script setup lang="ts">
 
 import {lpk} from "@/config/lpk";
+import userAPI from '@/api/userApi'
+
+// 事件
+onMounted( async () => {
+   const iUser = await userAPI.get({id:2})
+   console.log('iUser',iUser)
+   const iUserList = await userAPI.list({nPageSize:2})
+    console.log('iUserList',iUserList)
+})
+
 </script>
 
 <template>

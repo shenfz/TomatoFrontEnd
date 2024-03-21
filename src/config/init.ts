@@ -4,13 +4,11 @@ import {initLpk,lpk} from "@/config/lpk";
 import {getLoginUserInfo} from '@/controller/appCtrl'
 import {App} from "vue";
 import {initTheme} from "@/config/theme";
-import {entryInitFn} from '@/bmod/blog/entry'
-
 
 // 往 window 上挂载全局变量
 // 但是不能随意挂载，需要约束
 
-type IGlobalVarsKey = 'app' | 'lpk' | 'Tools' | 'ajax'
+type IGlobalVarsKey = 'app' | 'lpk' | 'Tools' | 'Ajax'
 type IGlobalVars = {
     [key in IGlobalVarsKey]?: any
 }
@@ -19,10 +17,11 @@ const iGlobalVars:IGlobalVars = {
     app,  // 全局应用对象 包括全局数据和应用方法
     Tools, // 全局工具库对象
     lpk,  // 全局 语言包支持函数
+    Ajax, // 全局请求库
 }
 
 Object.keys(iGlobalVars).forEach(stKey => {
-    (window as  any)[stKey as IGlobalVarsKey] = iGlobalVars[stKey as IGlobalVarsKey]
+    (window as any)[stKey as IGlobalVarsKey] = iGlobalVars[stKey as IGlobalVarsKey]
 })
 
 export const initApp = async () => {
@@ -47,8 +46,6 @@ export const initApp = async () => {
         // make sure each entry file have init function
         entryFile && entryFile.entryInitFn && await entryFile.entryInitFn()
     }
-
-
 
 }
 

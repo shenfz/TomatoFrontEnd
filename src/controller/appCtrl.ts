@@ -27,6 +27,9 @@ export default {
          return iLoginUser
     },
     redirectToLogin() {
+        // 清理登录者信息和token
+        iLoginUser = {} as MainUserInfo
+        Tools.Cookie.removeItem(LOGIN_TOKEN)
         document.location.href = LOGIN_PATH
     },
     // lpk method load in appCtrl

@@ -2,13 +2,13 @@
 import type {AxiosInstance, AxiosRequestConfig, AxiosResponse} from 'axios'
 import axios from "axios";
 import qs from 'qs'
-import { LOGIN_TOKEN} from "@/utils/constants";
+import {LOGIN_TOKEN} from "@/utils/constants";
 import {data} from "autoprefixer";
 import {get} from "lodash";
 
 // define extend type from AxiosRequestConfig
 export interface AxiosRequestConfigExt extends AxiosRequestConfig {
-    reqParams:AxiosRequestConfigExt,  // 请求参数
+    reqParams?:AxiosRequestConfigExt,  // 请求参数
     showLoading?: boolean, // 是否显示loading提示
     bIsNeedCachePrevent?:boolean//  是否加上防缓存的cp随机数
     bIsNeedJsonStringify?:boolean // 是否需要json.stringify
@@ -37,7 +37,7 @@ const axiosNewInstance:AxiosInstance = axios.create({
 
 // ==============================  Ajax 封装
 const ajaxMethods = ['GET','POST','PUT','DELETE','PATCH']
-// 定义每次请求的响应处理
+// 定义每次请求的响应处理 拦截器
 axiosNewInstance.interceptors.response.use((res:AxiosResponse<IResponse>) => {
     // 1.请求未报异常处理
      // 清除loading计时器，且隐藏loading
@@ -72,10 +72,32 @@ axiosNewInstance.interceptors.response.use((res:AxiosResponse<IResponse>) => {
     return Promise.reject({msg: stErrMsg})
 })
 
+// 绑定多种请求方法
+type IAjaxMethod = 'get' | 'post' | 'put' | 'patch' | 'delete'
+type IfnAjaxMethodHandler = <T = any >(reqParams:AxiosRequestConfigExt) => Promise<IResponse<T>>
+const iAllMethods:{[key in IAjaxMethod]: IfnAjaxMethodHandler} = {} as any
+const gstMethods:string[] = ['GET','POST','PUT','DELETE','PATCH']
+
+ gstMethods.map(method => {
+     iAllMethods[method.toLocaleLowerCase() as IAjaxMethod] = <T = any>(reqParams: AxiosRequestConfigExt | string): Promise<IResponse<T>> => {
+         if ('GET' == method) {
+             if ('string' == typeof reqParams) {
+                 reqParams = {
+                     url: reqParams,
+                     params: ''
+                 } as AxiosRequestConfigExt
+             }
+         }
+         //
+         return Ajax.request<T>(method, reqParams as AxiosRequestConfigExt)
+     }
+
+})
+
 // 定义常用请求方法
-
-
  const Ajax = {
+    // 处理方法解构
+    ...iAllMethods,
     // Promise指定类型，ts会反推类型，return出去的就相匹配
     request<T = any>(method:string,reqParams:AxiosRequestConfigExt):Promise<IResponse<T>>{
         // 获取请求参数

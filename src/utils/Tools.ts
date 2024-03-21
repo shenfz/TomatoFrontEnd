@@ -11,6 +11,10 @@ const Tools = {
     hideLoadMask() { // 隐藏遮罩
 
     },
+    showError(title:string = '' ,msg:string = ''){
+      alert(`${title}:  ${msg}`)
+    },
+
     addCachePrevent(url:string = ''){// 防止API请求命中本地缓存
         // url 存在 ？
         const nQueryStringFlagIndex = url.indexOf('?')
@@ -18,6 +22,25 @@ const Tools = {
         url += `${(-1 == nQueryStringFlagIndex? '?': '&')}cp=${(nCachePreventNum++ + fCachePreventRandom)}`
         return url
     },
+    // 处理api请求 发生的错误，默认都带有msg字段
+    // 若后端对错误描述的字段不是msg （ajax封装处做处理）
+    // 默认选择展示错误，或者带参数 选择忽略掉错误
+    processApiError(title:string,res:(string | {msg:string}),options: {isShowInfo:boolean} = {isShowInfo:true}){
+        if ('string' == typeof res){
+            res = {msg: res}
+        }
+
+        title = lpk(title) // title是lpk中的一个key
+        const stContent = lpk(res.msg) || ''
+        if (false !== options.isShowInfo){
+            Tools.showError(title,stContent)
+        }
+
+          window.console && window.console.log && window.console.log(res)
+          throw `${title}: ${stContent}`;
+
+    },
+
     Router: { // 路由操作
 
     },
